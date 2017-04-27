@@ -36,7 +36,7 @@ int delta(int q, char s){
             }
             break;
         }
-        
+
     }
     return -1;
 }
@@ -56,7 +56,7 @@ int maquinaEstados(char w[], int tam){
 }
 
 int main(){
-    char palavra[] = {'a', 'b', 'a', 'a', 'b'};
+    char palavra[] = {'a', 'b', 'a', 'b', 'a'};
     if (maquinaEstados(palavra, sizeof(palavra)/sizeof(char)) != -1){
         printf("ACEITA\n");
     } else{
