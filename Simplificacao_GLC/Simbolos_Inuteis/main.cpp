@@ -1,12 +1,17 @@
 #include "Simplificacoes.hpp"
 
+#define TAMV 4
+
 int main()
 {
     GRAMATICA G;
+    string V[] = {"S", "A", "B", "C"};
     iniGramatica(&G);
-    inserirV(&G, "SABC");
-    inserirT(&G, "abc");
-    string producoes[] = {"S=aAa|bBb", "A=a|S", "C=c"};
-    inserirP(&G, producoes, producoes.size());
+    for (int c = 0; c < TAMV; c++)
+    {
+        string x = V[c];
+        inserirElemLista(&G.V, x);
+    }
+    exibirLista(&G.V);
     return 0;
 }

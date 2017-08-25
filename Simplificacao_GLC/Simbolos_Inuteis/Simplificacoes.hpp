@@ -2,19 +2,40 @@
 #define SIMPLIFICACOES_HPP_INCLUDED
 
 #include <iostream>
-#include <vector>
+#include <cstdio>
+#include <cstdlib>
 
 using namespace std;
 
 typedef struct
 {
-    vector<char> V, T, S;
-    vector<string> P;
+    string w;
+} REGISTRO;
+
+typedef struct aux
+{
+    REGISTRO *elem;
+    struct aux *prox;
+} ELEMENTO;
+
+typedef ELEMENTO* PONT;
+
+typedef struct
+{
+    PONT inicio;
+} LISTA;
+
+typedef struct
+{
+    LISTA V, T, P;
+    char S;
 } GRAMATICA;
 
 void iniGramatica(GRAMATICA*);
-void inserirV(GRAMATICA*, string);
-void inserirT(GRAMATICA*, string);
-void inserirP(GRAMATICA*, string*, int);
+void inicializarLista(LISTA*);
+int tamanhoLista(LISTA*);
+void exibirLista(LISTA*);
+void reinicializarLista(LISTA*);
+void inserirElemLista(LISTA*, string);
 
 #endif // SIMPLIFICACOES_HPP_INCLUDED

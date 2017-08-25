@@ -2,33 +2,72 @@
 
 void iniGramatica(GRAMATICA *G) // inicializar a gramática com os valores iniciais
 {
-    G->V.clear();
-    G->T.clear();
-    G->P.clear();
-    G->S.clear();
-    G->S.push_back('S');
+    inicializarLista(&G->V);
+    inicializarLista(&G->T);
+    inicializarLista(&G->P);
+    G->S = 'S';
 }
 
-void inserirV(GRAMATICA *G, string vars)
+void inicializarLista(LISTA *l)  // define o estado inicial da lista
 {
-    for (int c = 0; c < vars.length(); c++)
+    l->inicio = NULL;
+}
+
+int tamanhoLista(LISTA *l) // realiza a contagem e retora o tamanho da lista
+{
+    int tam = 0;
+    PONT atual = l->inicio;
+    while (atual != NULL)
     {
-        G->V.push_back(vars[c]);
+        atual = atual->prox;
+        tam++;
     }
+    return tam;
 }
 
-void inserirT(GRAMATICA *G, string terms)
+void exibirLista(LISTA *l) // exibe o conteúdo da lista
 {
-    for (int c = 0; c < terms.length(); c++)
+    PONT atual = l->inicio;
+    printf("LISTA: ");
+    while (atual != NULL)
     {
-        G->T.push_back(terms[c]);
+        printf(" %s", atual->elem->w);
+        atual = atual->prox;
     }
+    printf("\n");
 }
 
-void inserirP(GRAMATICA *G, string *produ, int tam)
+void reinicializarLista(LISTA *l)  // retorna a lista ao seu estado inicial - elimina todos os elementos
 {
-    for (int c = 0; c < tam; c++)
+    PONT atual = l->inicio;
+    while (atual != NULL)
     {
-        G->P.push_back(produ[c]);
+        PONT apagar = atual;
+        atual = atual->prox;
+        free(apagar);
+    }
+    l->inicio = NULL;
+}
+
+void inserirElemLista(LISTA *l, string elem) // insere um elemento na lista - sempre no final
+{
+    PONT atual = l->inicio;
+    PONT ant = NULL;
+    while(atual != NULL)
+    {
+        ant = atual;
+        atual = atual->prox;
+    }
+    atual = (PONT) malloc(sizeof(ELEMENTO));
+    atual->elem = elem;
+    if (ant == NULL)
+    {
+        atual->prox = l->inicio;
+        l->inicio = atual;
+    }
+    else
+    {
+        atual->prox = ant->prox;
+        ant->prox = atual;
     }
 }
