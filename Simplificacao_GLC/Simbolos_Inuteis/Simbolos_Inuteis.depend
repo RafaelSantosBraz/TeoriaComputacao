@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1503623054 source:r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\simplificacoes.cpp
+	"Simplificacoes.hpp"
+
+1503623198 r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\simplificacoes.hpp
+	<iostream>
+	<vector>
+
+1503622632 source:r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\main.cpp
+	"Simplificacoes.hpp"
+
