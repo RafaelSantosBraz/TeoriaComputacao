@@ -1,73 +1,105 @@
 #include "Simplificacoes.hpp"
 
-void iniGramatica(GRAMATICA *G) // inicializar a gramática com os valores iniciais
+void inializarGramatica(GRAMATICA *G) // inicializar a gramática com os valores iniciais
 {
-    inicializarLista(&G->V);
-    inicializarLista(&G->T);
-    inicializarLista(&G->P);
     G->S = 'S';
+    G->V.clear();
+    G->T.clear();
+    G->P.clear();
 }
 
-void inicializarLista(LISTA *l)  // define o estado inicial da lista
+void inserirVariavel(GRAMATICA *G, string vars)
 {
-    l->inicio = NULL;
+    for (int c = 0; c < vars.length(); c++)
+    {
+        G->V.push_back(vars[c]);
+    }
 }
 
-int tamanhoLista(LISTA *l) // realiza a contagem e retora o tamanho da lista
+void inserirTerminal(GRAMATICA *G, string terms)
 {
-    int tam = 0;
-    PONT atual = l->inicio;
-    while (atual != NULL)
+    for (int c = 0; c < terms.length(); c++)
     {
-        atual = atual->prox;
-        tam++;
+        G->T.push_back(terms[c]);
     }
-    return tam;
 }
 
-void exibirLista(LISTA *l) // exibe o conteúdo da lista
+void inserirProducao(GRAMATICA *G, string producao)
 {
-    PONT atual = l->inicio;
-    printf("LISTA: ");
-    while (atual != NULL)
-    {
-        printf(" %s", atual->elem->w);
-        atual = atual->prox;
-    }
-    printf("\n");
+    G->P.push_back(producao);
 }
 
-void reinicializarLista(LISTA *l)  // retorna a lista ao seu estado inicial - elimina todos os elementos
+GRAMATICA* simbolosInuteisEtapa1(GRAMATICA *G)
 {
-    PONT atual = l->inicio;
-    while (atual != NULL)
+    GRAMATICA *G1 = (GRAMATICA*) malloc (sizeof(GRAMATICA));
+    inializarGramatica(G1);
+    int tamAnt;
+    do
     {
-        PONT apagar = atual;
-        atual = atual->prox;
-        free(apagar);
+        tamAnt = G1->V.size();
+        for (int posProdu = 0; posProdu < G->P.size(); posProdu++)
+        {
+            bool aceito;
+            for (int pos = 2; pos < G->P[posProdu].length(); pos++)
+            {
+                aceito = false;
+                for (int i = 0; i < G->T.size(); i++)
+                {
+                    if (G->T[i] == G->P[posProdu][pos])
+                    {
+                        aceito = true;
+                        break;
+                    }
+                }
+                if (!aceito)
+                {
+                    int j = G1->V.size();
+                    for (int i = 0; i < G1->V.size(); i++)
+                    {
+                        if (G1->V[i] == G->P[posProdu][pos])
+                        {
+                            aceito = true;
+                            break;
+                        }
+                    }
+                }
+                if (!aceito)
+                {
+                    break;
+                }
+            }
+            if (aceito)
+            {
+                bool inserir = true;
+                for (int i = 0; i < G1->V.size(); i++)
+                {
+                    if (G1->V[i] == G->P[posProdu][0])
+                    {
+                        inserir = false;
+                        break;
+                    }
+                }
+                if (inserir)
+                {
+                    int j = G1->V.size();
+                    G1->V.push_back(G->P[posProdu][0]);
+                }
+                inserir = true;
+                for (int i = 0; i < G1->P.size(); i++)
+                {
+                    if (G1->P[i] == G->P[posProdu])
+                    {
+                        inserir = false;
+                        break;
+                    }
+                }
+                if (inserir)
+                {
+                    inserirProducao(G1, G->P[posProdu]);
+                }
+            }
+        }
     }
-    l->inicio = NULL;
-}
-
-void inserirElemLista(LISTA *l, string elem) // insere um elemento na lista - sempre no final
-{
-    PONT atual = l->inicio;
-    PONT ant = NULL;
-    while(atual != NULL)
-    {
-        ant = atual;
-        atual = atual->prox;
-    }
-    atual = (PONT) malloc(sizeof(ELEMENTO));
-    atual->elem = elem;
-    if (ant == NULL)
-    {
-        atual->prox = l->inicio;
-        l->inicio = atual;
-    }
-    else
-    {
-        atual->prox = ant->prox;
-        ant->prox = atual;
-    }
+    while (G1->V.size() != tamAnt);
+    return G1;
 }

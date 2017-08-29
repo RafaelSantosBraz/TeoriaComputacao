@@ -4,38 +4,22 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
+#include <vector>
 
 using namespace std;
 
 typedef struct
 {
-    string w;
-} REGISTRO;
-
-typedef struct aux
-{
-    REGISTRO *elem;
-    struct aux *prox;
-} ELEMENTO;
-
-typedef ELEMENTO* PONT;
-
-typedef struct
-{
-    PONT inicio;
-} LISTA;
-
-typedef struct
-{
-    LISTA V, T, P;
+    vector<char> V, T;
+    vector<string> P;
     char S;
 } GRAMATICA;
 
-void iniGramatica(GRAMATICA*);
-void inicializarLista(LISTA*);
-int tamanhoLista(LISTA*);
-void exibirLista(LISTA*);
-void reinicializarLista(LISTA*);
-void inserirElemLista(LISTA*, string);
+void inializarGramatica(GRAMATICA*);
+void inserirVariavel(GRAMATICA*, string);
+void inserirTerminal(GRAMATICA*, string);
+void inserirProducao(GRAMATICA*, string);
+GRAMATICA* simbolosInuteisEtapa1(GRAMATICA*);
 
 #endif // SIMPLIFICACOES_HPP_INCLUDED

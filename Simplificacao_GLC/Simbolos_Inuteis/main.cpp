@@ -1,17 +1,23 @@
 #include "Simplificacoes.hpp"
 
-#define TAMV 4
+#define TAMP 5
 
 int main()
 {
     GRAMATICA G;
-    string V[] = {"S", "A", "B", "C"};
-    iniGramatica(&G);
-    for (int c = 0; c < TAMV; c++)
+    string P[] = {"S=aAa", "S=bBb", "A=a", "A=S", "C=c"};
+    inializarGramatica(&G);
+    inserirVariavel(&G, "SABC");
+    inserirTerminal(&G, "abc");
+    for (int i = 0; i < TAMP; i++)
     {
-        string x = V[c];
-        inserirElemLista(&G.V, x);
+        inserirProducao(&G, P[i]);
     }
-    exibirLista(&G.V);
+    cout << G.T.size();
+    GRAMATICA *G1 = simbolosInuteisEtapa1(&G);
+    for (int i = 0; i < G1->V.size(); i++)
+    {
+        printf(" %c", G1->V[i]);
+    }
     return 0;
 }
