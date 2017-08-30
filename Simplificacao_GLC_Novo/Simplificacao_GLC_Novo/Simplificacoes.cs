@@ -37,7 +37,6 @@ namespace Simplificacao_GLC_Novo
                                 break;
                             }
                         }
-
                     }
                     if (aceito)
                     {
@@ -71,7 +70,6 @@ namespace Simplificacao_GLC_Novo
                     if (G2.V.Variaveis.Contains(G1.P.Producoes[posProd][0]))
                     {
                         aceito = true;
-                                                
                     }
                     if (aceito)
                     {
@@ -81,7 +79,7 @@ namespace Simplificacao_GLC_Novo
                             {
                                 G2.V.inserirVariavel(G1.P.Producoes[posProd][pos]);
                             }
-                        }                     
+                        }
                         G2.P.inserirProducao(G1.P.Producoes[posProd]);
                         for (int i = 3; i < G1.P.Producoes[posProd].Length; i++)
                         {
@@ -99,6 +97,13 @@ namespace Simplificacao_GLC_Novo
         public Gramatica simbolosInuteis(Gramatica G)
         {
             return simbolosInuteisParteII(simbolosInuteisParteI(G));
+        }
+
+        public Variavel producoesVaziasParteI(Gramatica G)
+        {
+            Variavel Vvazio = new Variavel();
+            
+            return Vvazio;
         }
     }
 }

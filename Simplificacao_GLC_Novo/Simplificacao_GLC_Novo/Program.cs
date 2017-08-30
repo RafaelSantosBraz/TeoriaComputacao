@@ -13,7 +13,7 @@ namespace Simplificacao_GLC_Novo
             Gramatica G = new Gramatica();
             char[] vars = { 'S', 'A', 'B', 'C' };
             char[] terms = { 'a', 'b', 'c' };
-            String[] prods = { "S->aAa", "S->bBb", "A->a", "A->S", "C->c" };
+            String[] prods = { "S->aAa", "S->bBb", "A->a", "A->S", "C->c" , "A->"};
             for (int i = 0; i < vars.Length; i++)
             {
                 G.V.inserirVariavel(vars[i]);
@@ -28,7 +28,7 @@ namespace Simplificacao_GLC_Novo
             }
             Simplificacoes simp = new Simplificacoes();
             Gramatica G2 = simp.simbolosInuteis(G);
-            G.exibirGramatica();
+           // G.exibirGramatica();
             G2.exibirGramatica();
             Console.Read();
         }
