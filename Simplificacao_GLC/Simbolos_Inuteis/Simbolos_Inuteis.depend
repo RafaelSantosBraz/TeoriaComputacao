@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1503975912 source:r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\simplificacoes.cpp
+1504050716 source:r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\simplificacoes.cpp
 	"Simplificacoes.hpp"
 
 1503972352 r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\simplificacoes.hpp
@@ -9,6 +9,6 @@
 	<cstring>
 	<vector>
 
-1503973990 source:r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\main.cpp
+1503976064 source:r:\github\teoriacomputacao\simplificacao_glc\simbolos_inuteis\main.cpp
 	"Simplificacoes.hpp"
 

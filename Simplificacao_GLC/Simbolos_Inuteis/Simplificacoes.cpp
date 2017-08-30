@@ -53,7 +53,6 @@ GRAMATICA* simbolosInuteisEtapa1(GRAMATICA *G)
                 }
                 if (!aceito)
                 {
-                    int j = G1->V.size();
                     for (int i = 0; i < G1->V.size(); i++)
                     {
                         if (G1->V[i] == G->P[posProdu][pos])

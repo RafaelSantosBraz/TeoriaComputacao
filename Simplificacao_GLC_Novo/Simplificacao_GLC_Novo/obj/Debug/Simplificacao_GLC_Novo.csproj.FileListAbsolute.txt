@@ -1,0 +1,6 @@
+R:\GitHub\TeoriaComputacao\Simplificacao_GLC_Novo\Simplificacao_GLC_Novo\bin\Debug\Simplificacao_GLC_Novo.exe.config
+R:\GitHub\TeoriaComputacao\Simplificacao_GLC_Novo\Simplificacao_GLC_Novo\bin\Debug\Simplificacao_GLC_Novo.exe
+R:\GitHub\TeoriaComputacao\Simplificacao_GLC_Novo\Simplificacao_GLC_Novo\bin\Debug\Simplificacao_GLC_Novo.pdb
+R:\GitHub\TeoriaComputacao\Simplificacao_GLC_Novo\Simplificacao_GLC_Novo\obj\Debug\Simplificacao_GLC_Novo.csprojResolveAssemblyReference.cache
+R:\GitHub\TeoriaComputacao\Simplificacao_GLC_Novo\Simplificacao_GLC_Novo\obj\Debug\Simplificacao_GLC_Novo.exe
+R:\GitHub\TeoriaComputacao\Simplificacao_GLC_Novo\Simplificacao_GLC_Novo\obj\Debug\Simplificacao_GLC_Novo.pdb
