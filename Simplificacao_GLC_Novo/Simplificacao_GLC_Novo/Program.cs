@@ -27,9 +27,9 @@ namespace Simplificacao_GLC_Novo
                 G.P.inserirProducao(prods[i]);
             }
             Simplificacoes simp = new Simplificacoes();
-            Gramatica G1 = simp.simbolosInuteisParteI(G);
-            //G.exibirGramatica();
-            G1.exibirGramatica();
+            Gramatica G2 = simp.simbolosInuteis(G);
+            G.exibirGramatica();
+            G2.exibirGramatica();
             Console.Read();
         }
     }

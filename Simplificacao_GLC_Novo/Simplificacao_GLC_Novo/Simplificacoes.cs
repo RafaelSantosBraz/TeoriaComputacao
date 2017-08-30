@@ -68,30 +68,26 @@ namespace Simplificacao_GLC_Novo
                 for (int posProd = 0; posProd < G1.P.Producoes.Count; posProd++)
                 {
                     bool aceito = false;
-                    for (int pos = 3; pos < G1.P.Producoes[posProd].Length; pos++)
+                    if (G2.V.Variaveis.Contains(G1.P.Producoes[posProd][0]))
                     {
-                        if (Char.IsUpper(G1.P.Producoes[posProd][pos]))
-                        {
-                            if (G2.V.Variaveis.Contains(G1.P.Producoes[posProd][pos]))
-                            {
-                                aceito = true;
-                            }
-                            else
-                            {
-                                aceito = false;
-                                break;
-                            }
-                        }
+                        aceito = true;
+                                                
                     }
                     if (aceito)
                     {
-                        G2.V.inserirVariavel(G.P.Producoes[posProd][0]);
-                        G1.P.inserirProducao(G.P.Producoes[posProd]);
-                        for (int i = 3; i < G.P.Producoes[posProd].Length; i++)
+                        for (int pos = 3; pos < G1.P.Producoes[posProd].Length; pos++)
                         {
-                            if (Char.IsLower(G.P.Producoes[posProd][i]))
+                            if (Char.IsUpper(G1.P.Producoes[posProd][pos]))
                             {
-                                G1.T.inserirTerminal(G.P.Producoes[posProd][i]);
+                                G2.V.inserirVariavel(G1.P.Producoes[posProd][pos]);
+                            }
+                        }                     
+                        G2.P.inserirProducao(G1.P.Producoes[posProd]);
+                        for (int i = 3; i < G1.P.Producoes[posProd].Length; i++)
+                        {
+                            if (Char.IsLower(G1.P.Producoes[posProd][i]))
+                            {
+                                G2.T.inserirTerminal(G1.P.Producoes[posProd][i]);
                             }
                         }
                     }
