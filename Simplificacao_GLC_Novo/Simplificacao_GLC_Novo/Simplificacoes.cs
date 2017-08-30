@@ -37,7 +37,7 @@ namespace Simplificacao_GLC_Novo
                                 break;
                             }
                         }
-                        
+
                     }
                     if (aceito)
                     {
@@ -54,6 +54,55 @@ namespace Simplificacao_GLC_Novo
                 }
             } while (G1.V.Variaveis.Count != tamAnt);
             return G1;
+        }
+
+        public Gramatica simbolosInuteisParteII(Gramatica G1)
+        {
+            Gramatica G2 = new Gramatica();
+            G2.V.inserirVariavel(G2.S);
+            int tamAntV, tamAntT;
+            do
+            {
+                tamAntV = G2.V.Variaveis.Count;
+                tamAntT = G2.T.Terminais.Count;
+                for (int posProd = 0; posProd < G1.P.Producoes.Count; posProd++)
+                {
+                    bool aceito = false;
+                    for (int pos = 3; pos < G1.P.Producoes[posProd].Length; pos++)
+                    {
+                        if (Char.IsUpper(G1.P.Producoes[posProd][pos]))
+                        {
+                            if (G2.V.Variaveis.Contains(G1.P.Producoes[posProd][pos]))
+                            {
+                                aceito = true;
+                            }
+                            else
+                            {
+                                aceito = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (aceito)
+                    {
+                        G2.V.inserirVariavel(G.P.Producoes[posProd][0]);
+                        G1.P.inserirProducao(G.P.Producoes[posProd]);
+                        for (int i = 3; i < G.P.Producoes[posProd].Length; i++)
+                        {
+                            if (Char.IsLower(G.P.Producoes[posProd][i]))
+                            {
+                                G1.T.inserirTerminal(G.P.Producoes[posProd][i]);
+                            }
+                        }
+                    }
+                }
+            } while (G2.V.Variaveis.Count != tamAntV && G2.T.Terminais.Count != tamAntT);
+            return G2;
+        }
+
+        public Gramatica simbolosInuteis(Gramatica G)
+        {
+            return simbolosInuteisParteII(simbolosInuteisParteI(G));
         }
     }
 }
