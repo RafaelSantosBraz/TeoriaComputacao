@@ -43,6 +43,13 @@ namespace Simplificacao_GLC_Novo
                     {
                         G1.V.inserirVariavel(G.P.Producoes[posProd][0]);
                         G1.P.inserirProducao(G.P.Producoes[posProd]);
+                        for (int i = 3; i < G.P.Producoes[posProd].Length; i++)
+                        {
+                            if (Char.IsLower(G.P.Producoes[posProd][i]))
+                            {
+                                G1.T.inserirTerminal(G.P.Producoes[posProd][i]);
+                            }
+                        }
                     }
                 }
             } while (G1.V.Variaveis.Count != tamAnt);
