@@ -10,10 +10,14 @@ namespace Simplificacao_GLC_Novo
     {
         static void Main(string[] args)
         {
+            // o " " (espaço) representa o símbolo de Vazio
             Gramatica G = new Gramatica();
-            char[] vars = { 'S', 'A', 'B', 'C' };
-            char[] terms = { 'a', 'b', 'c' };
-            String[] prods = { "S->aAa", "S->bBb", "A->a", "A->S", "C->c" , "A->"};
+            //char[] vars = { 'S', 'A', 'B', 'C' };
+            //char[] terms = { 'a', 'b', 'c' };
+            //String[] prods = { "S->aAa", "S->bBb", "A->a", "A->S", "C->c", "S-> " };
+            char[] vars = { 'S', 'X', 'Y' };
+            char[] terms = { 'a', 'b' };
+            String[] prods = { "S->aXa", "S->bXb", "S-> ", "X->a", "X->b", "X->Y", "Y-> " };
             for (int i = 0; i < vars.Length; i++)
             {
                 G.V.inserirVariavel(vars[i]);
@@ -28,8 +32,10 @@ namespace Simplificacao_GLC_Novo
             }
             Simplificacoes simp = new Simplificacoes();
             Gramatica G2 = simp.simbolosInuteis(G);
-           // G.exibirGramatica();
-            G2.exibirGramatica();
+            //Gramatica G2 = simp.simbolosInuteisParteI(G);
+            // G.exibirGramatica();
+            //G2.exibirGramatica();
+            Variavel Vvazio = simp.producoesVaziasParteI(G);
             Console.Read();
         }
     }

@@ -9,6 +9,15 @@ namespace Simplificacao_GLC_Novo
     class Simplificacoes
     {
 
+        private static char vazio;
+
+        public static char Vazio { get => vazio; set => vazio = value; }
+
+        public Simplificacoes()
+        {
+            Vazio = ' ';
+        }
+
         public Gramatica simbolosInuteisParteI(Gramatica G)
         {
             Gramatica G1 = new Gramatica();
@@ -21,7 +30,7 @@ namespace Simplificacao_GLC_Novo
                     bool aceito = false;
                     for (int pos = 3; pos < G.P.Producoes[posProd].Length; pos++)
                     {
-                        if (G.T.Terminais.Contains(G.P.Producoes[posProd][pos]))
+                        if (G.T.Terminais.Contains(G.P.Producoes[posProd][pos]) || G.P.Producoes[posProd][pos] == Vazio)
                         {
                             aceito = true;
                         }
@@ -102,8 +111,40 @@ namespace Simplificacao_GLC_Novo
         public Variavel producoesVaziasParteI(Gramatica G)
         {
             Variavel Vvazio = new Variavel();
-            
+            for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+            {
+                for (int pos = 3; pos < G.P.Producoes[posProd].Length; pos++)
+                {
+                    if (G.P.Producoes[posProd][pos] == Vazio)
+                    {
+                        Vvazio.inserirVariavel(G.P.Producoes[posProd][0]);
+                    }
+                }
+            }
+            int tamAnt;
+            do
+            {
+                tamAnt = Vvazio.Variaveis.Count;
+                for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+                {
+                    for (int pos = 3; pos < G.P.Producoes[posProd].Length; pos++)
+                    {
+                        if (Vvazio.Variaveis.Contains(G.P.Producoes[posProd][pos]))
+                        {
+                            Vvazio.inserirVariavel(G.P.Producoes[posProd][0]);
+                            break;
+                        }
+                    }
+                }
+            } while (Vvazio.Variaveis.Count != tamAnt);
             return Vvazio;
+        }
+
+        public Gramatica producoesVaziasParteII(Gramatica G, Variavel Vvazio)
+        {
+            Gramatica G1 = new Gramatica();
+
+            return G1;
         }
     }
 }

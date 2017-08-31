@@ -19,7 +19,7 @@ namespace Simplificacao_GLC_Novo
 
         public void inserirTerminal(char term)
         {
-            if (!Terminais.Contains(term))
+            if (term != Simplificacoes.Vazio && !Terminais.Contains(term))
             {
                 Terminais.Add(term);
             }
