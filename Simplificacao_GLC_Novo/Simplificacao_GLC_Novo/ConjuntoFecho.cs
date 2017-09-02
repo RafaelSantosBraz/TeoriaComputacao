@@ -15,7 +15,7 @@ namespace Simplificacao_GLC_Novo
             Fechos = new List<Fecho>();
         }
 
-        internal List<Fecho> Fechos { get => Fechos; set => Fechos = value; }
+        public List<Fecho> Fechos { get => fechos; set => fechos = value; }
 
         public void inserirVariavel(Fecho f)
         {

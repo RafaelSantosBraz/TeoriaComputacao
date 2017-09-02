@@ -249,26 +249,39 @@ namespace Simplificacao_GLC_Novo
             }
             for (int posVar = 0; posVar < vars.Variaveis.Count; posVar++)
             {
-                Fecho fecho = new Fecho(vars.Variaveis[posVar]);
+                Fecho fecho = fechoParcial(G, vars.Variaveis[posVar]);
                 int tamAnt;
                 do
                 {
                     tamAnt = fecho.Subs.Count;
-                    for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+                    for (int p = 0; p < fecho.Subs.Count; p++)
                     {
-                        if (vars.Variaveis[posVar] == G.P.Producoes[posProd][0])
+                        Fecho fechoNovo = fechoParcial(G, fecho.Subs[p]);
+                        for (int i = 0; i < fechoNovo.Subs.Count; i++)
                         {
-                            if (G.P.Producoes[posProd].Length == 4 && G.P.Producoes[posProd][3] != vars.Variaveis[posVar])
-                            {
-                                fecho.inserirSubstituicao(G.P.Producoes[posProd][3]);
-
-                            }
+                            fecho.inserirSubstituicao(fechoNovo.Subs[i]);
                         }
                     }
                 } while (fecho.Subs.Count != tamAnt);
                 conjunto.Fechos.Add(fecho);
             }
             return conjunto;
+        }
+
+        public Fecho fechoParcial(Gramatica G, char variavel)
+        {
+            Fecho fecho = new Fecho(variavel);
+            for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+            {
+                if (variavel == G.P.Producoes[posProd][0])
+                {
+                    if (G.P.Producoes[posProd].Length == 4 && G.P.Producoes[posProd][3] != variavel && G.V.Variaveis.Contains(G.P.Producoes[posProd][3])) 
+                    {
+                        fecho.inserirSubstituicao(G.P.Producoes[posProd][3]);
+                    }
+                }
+            }
+            return fecho;
         }
     }
 }
