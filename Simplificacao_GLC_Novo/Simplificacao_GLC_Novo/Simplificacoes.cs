@@ -133,7 +133,7 @@ namespace Simplificacao_GLC_Novo
                         if (!Vvazio.Variaveis.Contains(G.P.Producoes[posProd][pos]))
                         {
                             inserir = false;
-                            break;                            
+                            break;
                         }
                     }
                     if (inserir)
@@ -237,6 +237,38 @@ namespace Simplificacao_GLC_Novo
             Variavel Vvazio = producoesVaziasParteI(G);
             Gramatica G1 = producoesVaziasParteII(G, Vvazio);
             return producoesVaziasParteIII(G1, Vvazio);
+        }
+
+        public ConjuntoFecho producoesSubsVariaveisI(Gramatica G)
+        {
+            ConjuntoFecho conjunto = new ConjuntoFecho();
+            Variavel vars = new Variavel();
+            for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+            {
+                vars.inserirVariavel(G.P.Producoes[posProd][0]);
+            }
+            for (int posVar = 0; posVar < vars.Variaveis.Count; posVar++)
+            {
+                Fecho fecho = new Fecho(vars.Variaveis[posVar]);
+                int tamAnt;
+                do
+                {
+                    tamAnt = fecho.Subs.Count;
+                    for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+                    {
+                        if (vars.Variaveis[posVar] == G.P.Producoes[posProd][0])
+                        {
+                            if (G.P.Producoes[posProd].Length == 4 && G.P.Producoes[posProd][3] != vars.Variaveis[posVar])
+                            {
+                                fecho.inserirSubstituicao(G.P.Producoes[posProd][3]);
+
+                            }
+                        }
+                    }
+                } while (fecho.Subs.Count != tamAnt);
+                conjunto.Fechos.Add(fecho);
+            }
+            return conjunto;
         }
     }
 }

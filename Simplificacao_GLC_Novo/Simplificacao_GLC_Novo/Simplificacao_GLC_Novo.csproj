@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConjuntoFecho.cs" />
+    <Compile Include="Fecho.cs" />
     <Compile Include="Gramatica.cs" />
     <Compile Include="Producao.cs" />
     <Compile Include="Program.cs" />
