@@ -127,13 +127,18 @@ namespace Simplificacao_GLC_Novo
                 tamAnt = Vvazio.Variaveis.Count;
                 for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
                 {
+                    bool inserir = true;
                     for (int pos = 3; pos < G.P.Producoes[posProd].Length; pos++)
                     {
-                        if (Vvazio.Variaveis.Contains(G.P.Producoes[posProd][pos]))
+                        if (!Vvazio.Variaveis.Contains(G.P.Producoes[posProd][pos]))
                         {
-                            Vvazio.inserirVariavel(G.P.Producoes[posProd][0]);
-                            break;
+                            inserir = false;
+                            break;                            
                         }
+                    }
+                    if (inserir)
+                    {
+                        Vvazio.inserirVariavel(G.P.Producoes[posProd][0]);
                     }
                 }
             } while (Vvazio.Variaveis.Count != tamAnt);
@@ -143,7 +148,53 @@ namespace Simplificacao_GLC_Novo
         public Gramatica producoesVaziasParteII(Gramatica G, Variavel Vvazio)
         {
             Gramatica G1 = new Gramatica();
-            
+            G1.S = G.S;
+            G1.V = G.V;
+            G1.T = G.T;
+            for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+            {
+                for (int pos = 3; pos < G.P.Producoes[posProd].Length; pos++)
+                {
+                    if (G.P.Producoes[posProd][pos] != Vazio)
+                    {
+                        G1.P.inserirProducao(G.P.Producoes[posProd]);
+                    }
+                }
+            }
+            int tamAnt;
+            do
+            {
+                tamAnt = G1.P.Producoes.Count;
+                for (int posProd = 0; posProd < G1.P.Producoes.Count; posProd++)
+                {
+                    List<char> vars = new List<char>();
+                    for (int pos = 3; pos < G1.P.Producoes[posProd].Length; pos++)
+                    {
+                        if (Vvazio.Variaveis.Contains(G1.P.Producoes[posProd][pos]))
+                        {
+                            vars.Add(G1.P.Producoes[posProd][pos]);
+                        }
+                    }
+                    bool[,] tabela = tabelaVerdade(vars.Count);
+                    for (int l = 0; l < tabela.GetLength(0); l++)
+                    {
+                        string novaProd = G1.P.Producoes[posProd];
+                        novaProd = novaProd.Remove(0, 3);
+                        for (int c = 0; c < tabela.GetLength(1); c++)
+                        {
+                            if (tabela[l, c])
+                            {
+                                int p = novaProd.IndexOf(vars[c]);
+                                novaProd = novaProd.Remove(p, 1);
+                            }
+                        }
+                        if (novaProd.Length != 0)
+                        {
+                            G1.P.inserirProducao(G1.P.Producoes[posProd][0] + "->" + novaProd);
+                        }
+                    }
+                }
+            } while (G1.P.Producoes.Count != tamAnt);
             return G1;
         }
 
@@ -169,6 +220,23 @@ namespace Simplificacao_GLC_Novo
                 h *= 2;
             }
             return tabela;
+        }
+
+        public Gramatica producoesVaziasParteIII(Gramatica G1, Variavel Vvazio)
+        {
+            Gramatica G2 = G1;
+            if (Vvazio.Variaveis.Contains(G2.S))
+            {
+                G2.P.inserirProducao(G2.S + "->" + Simplificacoes.Vazio);
+            }
+            return G2;
+        }
+
+        public Gramatica producoesVazias(Gramatica G)
+        {
+            Variavel Vvazio = producoesVaziasParteI(G);
+            Gramatica G1 = producoesVaziasParteII(G, Vvazio);
+            return producoesVaziasParteIII(G1, Vvazio);
         }
     }
 }
