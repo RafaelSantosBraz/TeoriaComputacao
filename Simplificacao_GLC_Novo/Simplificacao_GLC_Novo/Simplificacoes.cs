@@ -15,7 +15,7 @@ namespace Simplificacao_GLC_Novo
 
         public Simplificacoes()
         {
-            Vazio = ' ';
+            Vazio = '£';
         }
 
         public Gramatica simbolosInuteisParteI(Gramatica G)
@@ -143,8 +143,32 @@ namespace Simplificacao_GLC_Novo
         public Gramatica producoesVaziasParteII(Gramatica G, Variavel Vvazio)
         {
             Gramatica G1 = new Gramatica();
-
+            
             return G1;
+        }
+
+        public bool[,] tabelaVerdade(int colunas)
+        {
+            int linhas = (int)Math.Pow(2, colunas);
+            bool[,] tabela = new bool[linhas, colunas];
+            int h = 1;
+            for (int c = colunas - 1; c >= 0; c--)
+            {
+                int hAtual = 0;
+                bool atual = false;
+                for (int l = 0; l < linhas; l++)
+                {
+                    if (hAtual == h)
+                    {
+                        atual = !atual;
+                        hAtual = 0;
+                    }
+                    tabela[l, c] = atual;
+                    hAtual++;
+                }
+                h *= 2;
+            }
+            return tabela;
         }
     }
 }

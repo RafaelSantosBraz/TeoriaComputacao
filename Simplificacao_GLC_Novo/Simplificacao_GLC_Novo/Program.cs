@@ -10,7 +10,7 @@ namespace Simplificacao_GLC_Novo
     {
         static void Main(string[] args)
         {
-            // o " " (espaço) representa o símbolo de Vazio
+            // o "£" (libra) representa o símbolo de Vazio
             Gramatica G = new Gramatica();
             //char[] vars = { 'S', 'A', 'B', 'C' };
             //char[] terms = { 'a', 'b', 'c' };
@@ -36,6 +36,7 @@ namespace Simplificacao_GLC_Novo
             // G.exibirGramatica();
             //G2.exibirGramatica();
             Variavel Vvazio = simp.producoesVaziasParteI(G);
+            G2 = simp.producoesVaziasParteII(G, Vvazio);
             Console.Read();
         }
     }
