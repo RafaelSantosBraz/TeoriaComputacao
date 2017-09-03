@@ -12,6 +12,7 @@ namespace Simplificacao_GLC_Novo
         {
             // o "£" (libra) representa o símbolo de Vazio
             Gramatica G = new Gramatica();
+            G.S = 'A';
             char[] vars = { 'A', 'B', 'C', 'D', 'E', 'F' };
             char[] terms = { 'x', 'y', 'z' };
             String[] prods = { "A->xBy", "A->C", "B->zCx", "B->CD", "C->E", "C->xA", "C->F", "D->EF", "D->Axy", "E->xyz", "E->B", "F->D", "F->xBC" };

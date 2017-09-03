@@ -21,45 +21,28 @@ namespace Simplificacao_GLC_Novo
         public Gramatica simbolosInuteisParteI(Gramatica G)
         {
             Gramatica G1 = new Gramatica();
+            G1.S = G.S;
+            G1.T = G.T;
             int tamAnt;
             do
             {
                 tamAnt = G1.V.Variaveis.Count;
                 for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
                 {
-                    bool aceito = false;
+                    bool aceito = true;
                     for (int pos = 3; pos < G.P.Producoes[posProd].Length; pos++)
                     {
-                        if (G.T.Terminais.Contains(G.P.Producoes[posProd][pos]) || G.P.Producoes[posProd][pos] == Vazio)
+                        if (!G.T.Terminais.Contains(G.P.Producoes[posProd][pos]) && !G1.V.Variaveis.Contains(G.P.Producoes[posProd][pos]) && G.P.Producoes[posProd][pos] != Vazio)
                         {
-                            aceito = true;
-                        }
-                        else
-                        {
-                            if (G1.V.Variaveis.Contains(G.P.Producoes[posProd][pos]))
-                            {
-                                aceito = true;
-                            }
-                            else
-                            {
-                                aceito = false;
-                                break;
-                            }
+                            aceito = false;
+                            break;
                         }
                     }
                     if (aceito)
                     {
-                        G1.V.inserirVariavel(G.P.Producoes[posProd][0]);
-                        G1.P.inserirProducao(G.P.Producoes[posProd]);
-                        for (int i = 3; i < G.P.Producoes[posProd].Length; i++)
-                        {
-                            if (Char.IsLower(G.P.Producoes[posProd][i]))
-                            {
-                                G1.T.inserirTerminal(G.P.Producoes[posProd][i]);
-                            }
-                        }
+
                     }
-                }
+                }                    
             } while (G1.V.Variaveis.Count != tamAnt);
             return G1;
         }
