@@ -275,13 +275,52 @@ namespace Simplificacao_GLC_Novo
             {
                 if (variavel == G.P.Producoes[posProd][0])
                 {
-                    if (G.P.Producoes[posProd].Length == 4 && G.P.Producoes[posProd][3] != variavel && G.V.Variaveis.Contains(G.P.Producoes[posProd][3])) 
+                    if (G.P.Producoes[posProd].Length == 4 && G.P.Producoes[posProd][3] != variavel && G.V.Variaveis.Contains(G.P.Producoes[posProd][3]))
                     {
                         fecho.inserirSubstituicao(G.P.Producoes[posProd][3]);
                     }
                 }
             }
             return fecho;
+        }
+
+        public Gramatica producoesSubsVariaveisII(Gramatica G, ConjuntoFecho conjunto)
+        {
+            Gramatica G1 = new Gramatica();
+            G1.S = G.S;
+            G1.V = G.V;
+            G1.T = G.T;
+            for (int posProd = 0; posProd < G.P.Producoes.Count; posProd++)
+            {
+                if (G.P.Producoes[posProd].Length != 4 || (G.P.Producoes[posProd].Length == 4 && !G.V.Variaveis.Contains(G.P.Producoes[posProd][3])))
+                {
+                    G1.P.inserirProducao(G.P.Producoes[posProd]);
+                }
+            }
+            for (int c = 0; c < conjunto.Fechos.Count; c++)
+            {
+                for (int i = 0; i < conjunto.Fechos[c].Subs.Count; i++)
+                {
+                    for (int pos = 0; pos < G1.P.Producoes.Count; pos++)
+                    {
+                        if (G1.P.Producoes[pos][0] == conjunto.Fechos[c].Subs[i])
+                        {
+                            string aux = conjunto.Fechos[c].Var + "->";
+                            for (int j = 3; j < G1.P.Producoes[pos].Length; j++)
+                            {
+                                aux += G1.P.Producoes[pos][j];
+                            }
+                            G1.P.inserirProducao(aux);
+                        }
+                    }
+                }
+            }
+            return G1;
+        }
+
+        public Gramatica producoesSubsVariaveis(Gramatica G)
+        {
+            return producoesSubsVariaveisII(G, producoesSubsVariaveisI(G));
         }
     }
 }
