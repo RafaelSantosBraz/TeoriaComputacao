@@ -300,5 +300,45 @@ namespace Simplificacao_GLC_Novo
         {
             return producoesSubsVariaveisII(G, producoesSubsVariaveisI(G));
         }
+
+        public Gramatica simplificar(Gramatica G)
+        {
+            return simbolosInuteis(producoesSubsVariaveis(producoesVazias(G)));
+        }
+
+        public Gramatica simplificarChomsky(Gramatica G)
+        {
+            Gramatica G1 = simplificar(G);
+            List<string> aux = new List<string>();
+            foreach (string p in G1.P.Producoes)
+            {
+                if (p.Contains(Vazio))
+                {
+                    aux.Add(p);
+                }
+            }
+            foreach (string p in aux)
+            {
+                G1.P.Producoes.Remove(p);
+            }
+            return G1;
+        }
+
+        public Gramatica formaNormalChomskyParteI(Gramatica G)
+        {            
+            return simplificarChomsky(G); 
+        }
+
+        public Gramatica formaNormalChomskyParteII(Gramatica G1)
+        {
+            Gramatica G2 = new Gramatica();
+            return G2;
+        }
+
+        public Gramatica formaNormalChomsky(Gramatica G)
+        {
+            Gramatica G1 = formaNormalChomskyParteI(G);
+            return G1;
+        }
     }
 }

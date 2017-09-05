@@ -29,7 +29,7 @@ namespace Simplificacao_GLC_Novo
                 G.P.inserirProducao(prods[i]);
             }
             Simplificacoes simp = new Simplificacoes();
-            Gramatica G1 = simp.simbolosInuteis(G);
+            Gramatica G1 = simp.simplificarChomsky(G);
             G1.exibirGramatica();
             Console.Read();
         }
