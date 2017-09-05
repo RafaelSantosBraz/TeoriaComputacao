@@ -28,6 +28,7 @@ namespace Simplificacao_GLC_Novo
 
         public void exibirGramatica()
         {
+            P.Producoes.Sort();
             Console.WriteLine("----");
             Console.WriteLine("V:");
             foreach (char var in this.V.Variaveis)

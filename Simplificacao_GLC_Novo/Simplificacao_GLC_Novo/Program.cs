@@ -12,10 +12,10 @@ namespace Simplificacao_GLC_Novo
         {
             // o "£" (libra) representa o símbolo de Vazio
             Gramatica G = new Gramatica();
-            G.S = 'A';
-            char[] vars = { 'A', 'B', 'C', 'D', 'E', 'F' };
-            char[] terms = { 'x', 'y', 'z' };
-            String[] prods = { "A->xBy", "A->C", "B->zCx", "B->CD", "C->E", "C->xA", "C->F", "D->EF", "D->Axy", "E->xyz", "E->B", "F->D", "F->xBC" };
+            G.S = 'S';
+            char[] vars = { 'S', 'A', 'B' };
+            char[] terms = { 'a', 'b' };
+            String[] prods = { "S->AAA", "S->B", "A->aA", "A->B", "B->£" };
             for (int i = 0; i < vars.Length; i++)
             {
                 G.V.inserirVariavel(vars[i]);
@@ -28,8 +28,8 @@ namespace Simplificacao_GLC_Novo
             {
                 G.P.inserirProducao(prods[i]);
             }
-            Simplificacoes simp = new Simplificacoes();            
-            Gramatica G1 = simp.producoesSubsVariaveis(G);
+            Simplificacoes simp = new Simplificacoes();
+            Gramatica G1 = simp.simbolosInuteis(G);
             G1.exibirGramatica();
             Console.Read();
         }

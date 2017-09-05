@@ -40,9 +40,10 @@ namespace Simplificacao_GLC_Novo
                     }
                     if (aceito)
                     {
-
+                        G1.V.inserirVariavel(G.P.Producoes[posProd][0]);
+                        G1.P.inserirProducao(G.P.Producoes[posProd]);
                     }
-                }                    
+                }
             } while (G1.V.Variaveis.Count != tamAnt);
             return G1;
         }
@@ -50,6 +51,7 @@ namespace Simplificacao_GLC_Novo
         public Gramatica simbolosInuteisParteII(Gramatica G1)
         {
             Gramatica G2 = new Gramatica();
+            G2.S = G1.S;
             G2.V.inserirVariavel(G2.S);
             int tamAntV, tamAntT;
             do
@@ -58,31 +60,24 @@ namespace Simplificacao_GLC_Novo
                 tamAntT = G2.T.Terminais.Count;
                 for (int posProd = 0; posProd < G1.P.Producoes.Count; posProd++)
                 {
-                    bool aceito = false;
                     if (G2.V.Variaveis.Contains(G1.P.Producoes[posProd][0]))
                     {
-                        aceito = true;
-                    }
-                    if (aceito)
-                    {
+
                         for (int pos = 3; pos < G1.P.Producoes[posProd].Length; pos++)
                         {
-                            if (Char.IsUpper(G1.P.Producoes[posProd][pos]))
+                            if (G1.V.Variaveis.Contains(G1.P.Producoes[posProd][pos]))
                             {
                                 G2.V.inserirVariavel(G1.P.Producoes[posProd][pos]);
                             }
-                        }
-                        G2.P.inserirProducao(G1.P.Producoes[posProd]);
-                        for (int i = 3; i < G1.P.Producoes[posProd].Length; i++)
-                        {
-                            if (Char.IsLower(G1.P.Producoes[posProd][i]))
+                            else if (G1.P.Producoes[posProd][pos] != Vazio)
                             {
-                                G2.T.inserirTerminal(G1.P.Producoes[posProd][i]);
+                                G2.T.inserirTerminal(G1.P.Producoes[posProd][pos]);
                             }
                         }
+                        G2.P.inserirProducao(G1.P.Producoes[posProd]);                        
                     }
                 }
-            } while (G2.V.Variaveis.Count != tamAntV && G2.T.Terminais.Count != tamAntT);
+            } while (G2.V.Variaveis.Count != tamAntV || G2.T.Terminais.Count != tamAntT);
             return G2;
         }
 
